@@ -1,3 +1,7 @@
+## Topology
+
+![Lab Topology](topology.jpeg)
+
 ## IP Addressing
 
 | Device | Interface | IP Address | Role |
