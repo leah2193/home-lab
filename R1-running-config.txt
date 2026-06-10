@@ -1,0 +1,131 @@
+
+R1#show running-config
+Building configuration...
+
+Current configuration : 1529 bytes
+!
+! Last configuration change at 02:18:07 UTC Wed Jun 10 2026
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging buffered 64000
+logging monitor informational
+enable secret 5 <password>
+
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name leah.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+cts logging verbose
+!
+!
+license udi pid CISCO2901/K9 sn FTX1530Y01K
+!
+!
+username leah password 7 <password>
+
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+ service-module enable
+!
+interface GigabitEthernet0/0
+ ip address 10.0.1.254 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.0.2.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+!
+!
+!
+control-plane
+!
+!
+banner motd ^C this is my lab ^C
+!
+line con 0
+ password 7 <password>
+ logging synchronous
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 7 <password>
+
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ password 7 <password>
+
+ logging synchronous
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+R1#
