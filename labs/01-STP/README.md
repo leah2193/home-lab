@@ -42,13 +42,59 @@ This screenshot shows SW1 becoming the root bridge after modifying bridge priori
 
 After changing the bridge priority and making SW1 the root bridge, STP recalculated the topology. The blocking port moved to SW2, demonstrating how STP dynamically selects the optimal forwarding and blocking paths while preventing Layer 2 loops.
 
-## Issue 1 — Cannot Ping 10.0.2.0/30 From Laptop
-**Symptom:** Pings to the R1-R2 link subnet 10.0.2.0/30 timed out from the management laptop despite correct device configurations.
-**What Made It Confusing:** The directly connected management subnet 10.0.1.0/24 was fully reachable — all four devices responded to pings normally. This initially pointed suspicion toward routing or firewall issues on the devices rather than the laptop itself.
-**Tools Used:** ping, tracert, route print, ipconfig
-**Diagnosis:** tracert 10.0.2.1 revealed traffic exiting via home WiFi to Spectrum rather than the lab ethernet adapter. route print confirmed two competing default routes — WiFi metric (35) lower than lab adapter metric (291).
-**Root Cause:** 10.0.1.0/24 worked because it was directly connected — Windows bypasses the default route for directly connected subnets. Traffic to 10.0.2.0/30 required a gateway, and Windows chose the WiFi default route instead of the lab adapter.
-**Fix:**
-route add 10.0.2.0 mask 255.255.255.252 10.0.1.254
-**Lesson:** Always verify the routing table on the management workstation before troubleshooting network devices. The problem was never on the network — it was on the host.Sonnet 4.6 Low
+### Issue 1 — Cannot Ping 10.0.2.0/30 From Laptop
+**Symptom:** Pings to the R1-R2 link subnet `10.0.2.0/30` 
+timed out from the management laptop despite correct 
+device configurations.
 
+**Not straightfoward** The directly connected 
+management subnet `10.0.1.0/24` was fully reachable — 
+all four devices (SW1, SW2, R1, R2) responded to pings 
+normally. This initially suggested the network was 
+healthy and pointed suspicion toward routing or 
+firewall issues on the devices rather than the 
+laptop itself.
+
+**Initial Investigation:** Windows Firewall was the first 
+suspect since the symptom resembled inbound ICMP being 
+blocked. A firewall rule was added to allow inbound 
+ICMPv4 using the following command run as Administrator:
+
+    netsh advfirewall firewall add rule name="Allow ICMPv4" protocol=icmpv4:8,any dir=in action=allow
+
+Pings still failed after the rule was added, ruling out 
+the firewall as the cause and shifting investigation 
+toward the routing table.
+
+**Tools Used:** `ping`, `tracert`, `route print`, `ipconfig`
+
+**Diagnosis:** `tracert 10.0.2.1` revealed traffic was 
+exiting via the home WiFi interface to Spectrum rather 
+than the lab ethernet adapter. `route print` confirmed 
+two competing default routes — WiFi adapter metric (35) 
+was lower than the lab ethernet adapter metric (291), 
+so Windows preferred WiFi for all traffic including 
+lab destinations.
+
+**Root Cause:** Competing default routes on Windows 
+laptop. The `10.0.1.0/24` subnet worked because it 
+was directly connected on the lab adapter — Windows 
+didn't need the default route for that traffic. 
+The moment traffic needed to cross to `10.0.2.0/30` 
+via a gateway, Windows chose the WiFi default route 
+instead of the lab adapter, sending packets out to 
+the internet instead of to R1.
+
+**Fix:** Added a specific static route for the lab subnet: 
+route add -p 10.0.2.0 mask 255.255.255.252 10.0.1.254
+
+This directed traffic destined for `10.0.2.0/30` 
+specifically through the lab gateway while leaving 
+internet traffic unaffected.
+
+**Lesson:** Always verify the routing table on the 
+management workstation before troubleshooting network 
+devices. A directly connected subnet bypasses the 
+default route entirely — which is why `10.0.1.0/24` 
+worked fine while `10.0.2.0/30` failed. The problem 
+was never on the network — it was on the host.
