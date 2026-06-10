@@ -22,3 +22,9 @@ This screenshot shows STP placing a redundant link into the blocking state to pr
 ![STP Root Bridge](STP-changed-rootbridge.jpg)
 
 This screenshot shows SW1 becoming the root bridge after modifying bridge priority.
+
+## STP Recalculates After Root Bridge Change
+
+![STP Blocking Port on SW2](STP-now-blocking-port-SW2.jpg)
+
+After changing the bridge priority and making SW1 the root bridge, STP recalculated the topology. The blocking port moved to SW2, demonstrating how STP dynamically selects the optimal forwarding and blocking paths while preventing Layer 2 loops.
