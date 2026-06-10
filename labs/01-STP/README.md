@@ -13,8 +13,12 @@
 
 ## Hardware Evidence
 
-STP blocking port shown as amber on physical switch:
+![STP Port Blocking](STP-port-blocking.jpg)
 
-![STP Blocking Port 1](IMG_4782.jpeg)
+This screenshot shows STP placing a redundant link into the blocking state to prevent a Layer 2 loop.
 
-![STP Blocking Port 2](IMG_4783.jpeg)
+## Root Bridge Election
+
+![STP Root Bridge](STP-changed-rootbridge.jpg)
+
+This screenshot shows SW1 becoming the root bridge after modifying bridge priority.
