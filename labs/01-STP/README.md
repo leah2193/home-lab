@@ -1,6 +1,6 @@
 ## Topology
 
-![Lab Topology](STP-topology.png)
+![Lab Topology](STP-lab-topology.jpg)
 
 ## IP Addressing
 
