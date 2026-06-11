@@ -32,3 +32,17 @@ routed networks within the topology, providing a more
 realistic environment for the main point of this lab which is OSPF 
 route advertisements, route exchange, and routing 
 protocol behavior.
+
+## Future Labs — IPv6
+
+Future labs will build on this topology by introducing 
+IPv6 routing. Similar to the way VLAN segmentation helps 
+contain unnecessary Layer 2 traffic, IPv6 introduces a 
+more modern approach to host discovery and addressing 
+through Neighbor Discovery Protocol (NDP) and greatly 
+reduces the need for NAT. Expanding this lab to include 
+IPv6 will provide an opportunity to observe routing 
+behavior, Neighbor Discovery, and dual-stack operation 
+while exploring how modern networks can be designed to 
+scale more efficiently and with less operational 
+complexity.
