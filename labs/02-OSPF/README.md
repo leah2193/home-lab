@@ -46,3 +46,29 @@ behavior, Neighbor Discovery, and dual-stack operation
 while exploring how modern networks can be designed to 
 scale more efficiently and with less operational 
 complexity.
+
+## Lab Host Routing
+
+In a previous lab, my topology contained only one subnet 
+that was not directly connected to my laptop. Rather than 
+changing the metric of my existing home Wi-Fi default 
+route, I simply added a static route on my laptop to 
+reach the additional lab network. In this topology, 
+however, there are several downstream networks. Instead 
+of creating a static route for each subnet, I lowered 
+the metric of the lab default gateway so my laptop could 
+automatically reach all networks within the lab 
+environment.
+
+## Working on Physical Equipment
+
+There are benefits to working on physical equipment 
+rather than a simulated environment. In addition to 
+configuring switches and routers, I had to configure 
+my endpoint device and account for competing routes 
+from my home network. The lab also provides experience 
+with SSH management, understanding the packet flow 
+required to establish remote access, and knowing when 
+SSH can be used instead of a console connection. It 
+has also helped me recognize situations where a console 
+cable is still necessary.
