@@ -12,11 +12,13 @@ IP subnet. Any endpoints connected to the access switch
 would need to share that subnet, which seemed inflexible 
 in a real enterprise environment where multiple VLANs are 
 often used to separate user groups, enforce security 
-boundaries, and limit the spread of broadcast traffic so 
-that devices spend less time processing unnecessary 
-network traffic.
+boundaries, and contain layer 2 broadcast traffic such as 
+ARP and DHCP requests so that devices spend less time 
+processing traffic that is not relevant to their operation.
+Multiple VLANs will also improve scalability as the number
+of endpoints grow"
 
-Instead, I configured a trunk link between SW1 and the 
+SO I configured a trunk link between SW1 and the 
 access switch and implemented SVIs on SW1 to provide 
 inter-VLAN routing. This design allows additional VLANs 
 to be extended to the access layer in the future without 
