@@ -72,3 +72,14 @@ required to establish remote access, and knowing when
 SSH can be used instead of a console connection. It 
 has also helped me recognize situations where a console 
 cable is still necessary.
+
+## Loopback Addresses
+
+I finally experienced the value of loopback addresses. 
+Unlike a physical interface, a loopback remains reachable 
+as long as at least one path to the router exists, making 
+it a stable address for management and routing protocols. 
+Loopbacks also make excellent OSPF Router IDs, and 
+assigning them meaningful addresses makes it much easier 
+to identify neighbors when reviewing commands such as 
+`show ip ospf neighbor`.
