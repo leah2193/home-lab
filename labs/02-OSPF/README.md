@@ -68,9 +68,7 @@ a consistent routing architecture.
 
 Using SW1 as a Layer 3 switch also creates multiple 
 routed networks within the topology, providing a more 
-realistic environment for future labs involving OSPF 
-route advertisements, route exchange, and routing 
-protocol behavior.
+realistic environment for the OSPF protocol. 
 
 ## Working on Physical Equipment
 
