@@ -11,11 +11,8 @@ Physical Cisco home lab built on:
 ### 01-STP
 Demonstrates Spanning Tree Protocol loop prevention and redundant path failover.
 
-### 02-Routed-Ports
-Coming soon.
+### 02-OSPF
+OSPF routing protocol with routed ports and SVI's. Testing a failover situation
 
-### 03-OSPF
-Coming soon.
+### 03-SSH Automation
 
-### 04-SSH Automation
-Coming soon.
