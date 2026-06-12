@@ -83,3 +83,24 @@ Loopbacks also make excellent OSPF Router IDs, and
 assigning them meaningful addresses makes it much easier 
 to identify neighbors when reviewing commands such as 
 `show ip ospf neighbor`.
+
+## OSPF DR/BDR Election Observation
+
+I observed that SW1 lost the OSPF DR election despite 
+having the highest Router ID (`3.3.3.3`) because it was 
+the last device to join the OSPF domain. R1 and R2 had 
+already completed the DR/BDR election, and OSPF elections 
+are non-preemptive — a new router cannot claim DR simply 
+by having a higher Router ID if the election has already 
+taken place.
+
+Two lessons I will carry forward from this lab:
+
+- Prefer `ip ospf network point-to-point` on /30 links 
+  where appropriate to avoid unnecessary DR/BDR elections 
+  on segments that will never have more than two routers
+- Explicitly configure OSPF priorities rather than relying 
+  on default election behavior — use `ip ospf priority 255` 
+  on devices that should always be DR and 
+  `ip ospf priority 0` on devices that should never 
+  become DR
