@@ -112,3 +112,30 @@ Two lessons I will carry forward from this lab:
   on devices that should always be DR and 
   `ip ospf priority 0` on devices that should never 
   become DR
+
+## OSPF Failover Demonstration
+
+To demonstrate OSPF reconvergence, FastEthernet1/0/1 
+on SW1 (the direct link to R1) was administratively 
+shut down. 
+
+### Before Failover
+SW1 reached R1's loopback `1.1.1.1` via the direct 
+link — next hop `10.0.13.2` on Fa1/0/1.
+
+### After Failover
+OSPF detected the link failure and reconverged 
+automatically. SW1's route to R1's loopback `1.1.1.1` 
+changed to next hop `10.0.13.6` (R2's Gi0/0) — traffic 
+now travels SW1 → R2 → R1 rather than the direct path.
+
+### What This Demonstrates
+- OSPF automatically recalculates the best path when 
+  a link fails
+- No manual intervention required — reconvergence 
+  happens within seconds
+- The redundant path through R2 provided continuous 
+  reachability to R1 even with the direct link down
+- This is the core value proposition of a dynamic 
+  routing protocol over static routes — static routes 
+  require manual updates when topology changes occur
