@@ -1,0 +1,135 @@
+R1#show running-config
+Building configuration...
+
+Current configuration : 1681 bytes
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging buffered 64000
+logging monitor informational
+enable secret 5 $1$PNm5$nLyS8BHVJk7vR54mZnMKq/
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name leah.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+cts logging verbose
+!
+!
+license udi pid CISCO2901/K9 sn FTX1530Y01K
+!
+!
+username leah password 7 02050D4808095E731F
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+ service-module enable
+!
+interface GigabitEthernet0/0
+ ip address 10.0.13.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.0.13.9 255.255.255.252
+ duplex auto
+ speed auto
+!
+router ospf 1
+ network 1.1.1.1 0.0.0.0 area 0
+ network 10.0.13.0 0.0.0.3 area 0
+ network 10.0.13.8 0.0.0.3 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+!
+!
+!
+control-plane
+!
+!
+banner motd ^C this is my lab ^C
+!
+line con 0
+ password 7 110A1016141D5A5E57
+ logging synchronous
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ exec-timeout 60 0
+ password 7 1511021F07257A767B
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 60 0
+ password 7 1511021F07257A767B
+ logging synchronous
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+R1#
+R1#

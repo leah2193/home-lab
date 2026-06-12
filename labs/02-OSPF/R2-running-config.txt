@@ -1,0 +1,165 @@
+R2#show running-config
+Building configuration...
+
+
+
+Current configuration : 1914 bytes
+!
+version 15.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging buffered 64000
+logging monitor informational
+enable secret 5 $1$/0bq$MJJWqxWGUmcnJ7yXhYIym/
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name leah.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+vxml logging-tag
+license udi pid CISCO2901/K9 sn FGL165110XX
+!
+!
+username leah secret 5 $1$qnTX$0ffAFMEB.7btYCsIzGtMu1
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.0.13.6 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.0.13.10 255.255.255.252
+ duplex auto
+ speed auto
+!
+router ospf 1
+ network 2.2.2.2 0.0.0.0 area 0
+ network 10.0.13.4 0.0.0.3 area 0
+ network 10.0.13.8 0.0.0.3 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip ssh version 2
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+banner motd ^C my lab ^C
+!
+line con 0
+ password 7 094F471A1A0A464058
+ logging synchronous
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ exec-timeout 60 0
+ password 7 045802150C2E1D1C5A
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 60 0
+ password 7 045802150C2E1D1C5A
+ logging synchronous
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+R2#

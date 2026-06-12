@@ -1,0 +1,219 @@
+SW1#show running-config
+Building configuration...
+
+Current configuration : 3305 bytes
+!
+! Last configuration change at 03:21:25 UTC Mon Mar 1 1993 by leah
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$rCsW$O1a2aPIIA595PvmYM17NY.
+!
+username leah secret 5 $1$6DtD$eO5fdWe/G2X3Uk7vAZxDC1
+no aaa new-model
+switch 1 provision ws-c3750v2-48ts
+system mtu routing 1500
+ip routing
+no ip domain-lookup
+ip domain-name leah.local
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 1 priority 4096
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 3.3.3.3 255.255.255.255
+!
+interface FastEthernet1/0/1
+ no switchport
+ ip address 10.0.13.1 255.255.255.252
+!
+interface FastEthernet1/0/2
+ no switchport
+ ip address 10.0.13.5 255.255.255.252
+!
+interface FastEthernet1/0/3
+ shutdown
+!
+interface FastEthernet1/0/4
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1,10,20
+ switchport mode trunk
+!
+interface FastEthernet1/0/5
+!
+interface FastEthernet1/0/6
+!
+interface FastEthernet1/0/7
+!
+interface FastEthernet1/0/8
+!
+interface FastEthernet1/0/9
+!
+interface FastEthernet1/0/10
+!
+interface FastEthernet1/0/11
+!
+interface FastEthernet1/0/12
+!
+interface FastEthernet1/0/13
+!
+interface FastEthernet1/0/14
+!
+interface FastEthernet1/0/15
+!
+interface FastEthernet1/0/16
+!
+interface FastEthernet1/0/17
+!
+interface FastEthernet1/0/18
+!
+interface FastEthernet1/0/19
+!
+interface FastEthernet1/0/20
+!
+interface FastEthernet1/0/21
+!
+interface FastEthernet1/0/22
+!
+interface FastEthernet1/0/23
+!
+interface FastEthernet1/0/24
+!
+interface FastEthernet1/0/25
+!
+interface FastEthernet1/0/26
+!
+interface FastEthernet1/0/27
+!
+interface FastEthernet1/0/28
+!
+interface FastEthernet1/0/29
+!
+interface FastEthernet1/0/30
+!
+interface FastEthernet1/0/31
+!
+interface FastEthernet1/0/32
+!
+interface FastEthernet1/0/33
+!
+interface FastEthernet1/0/34
+!
+interface FastEthernet1/0/35
+!
+interface FastEthernet1/0/36
+!
+interface FastEthernet1/0/37
+!
+interface FastEthernet1/0/38
+!
+interface FastEthernet1/0/39
+!
+interface FastEthernet1/0/40
+!
+interface FastEthernet1/0/41
+!
+interface FastEthernet1/0/42
+!
+interface FastEthernet1/0/43
+!
+interface FastEthernet1/0/44
+!
+interface FastEthernet1/0/45
+!
+interface FastEthernet1/0/46
+!
+interface FastEthernet1/0/47
+!
+interface FastEthernet1/0/48
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface Vlan1
+ ip address 10.0.1.1 255.255.255.0
+!
+interface Vlan10
+ ip address 10.0.10.254 255.255.255.0
+!
+interface Vlan20
+ ip address 10.0.20.254 255.255.255.0
+!
+router ospf 1
+ network 3.3.3.3 0.0.0.0 area 0
+ network 10.0.1.0 0.0.0.255 area 0
+ network 10.0.10.0 0.0.0.255 area 0
+ network 10.0.13.0 0.0.0.3 area 0
+ network 10.0.13.4 0.0.0.3 area 0
+ network 10.0.20.0 0.0.0.255 area 0
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+banner motd ^C tra lala^C
+!
+line con 0
+ password 7 02050D4808095E731F
+ login
+line vty 0 4
+ exec-timeout 60 0
+ password 7 02050D4808095E731F
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 60 0
+ password 7 02050D4808095E731F
+ login local
+ transport input ssh
+!
+end
+
+SW1#
