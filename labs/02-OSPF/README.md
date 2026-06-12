@@ -94,6 +94,14 @@ are non-preemptive — a new router cannot claim DR simply
 by having a higher Router ID if the election has already 
 taken place.
 
+## OSPF DR/BDR Election Evidence
+
+![SW1 OSPF Neighbors](Sw1-ospf-neighbors.png)
+
+SW1 (`3.3.3.3`) holds the highest Router ID in the 
+topology yet lost the DR election on both routed port 
+segments — R1 (`1.1.1.1`) and R2 (`2.2.2.2`)
+
 Two lessons I will carry forward from this lab:
 
 - Prefer `ip ospf network point-to-point` on /30 links 
